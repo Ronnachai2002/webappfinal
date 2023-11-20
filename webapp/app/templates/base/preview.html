@@ -1,0 +1,32 @@
+<style>
+    .image-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 600px; /* ปรับขนาดตามต้องการ */
+        margin: 0 auto; /* จัดตำแหน่งให้อยู่ตรงกลาง */
+    }
+
+    .image {
+        flex: 0 0 30%; /* ขนาดของแต่ละ div */
+        margin: 5px; /* ระยะห่างระหว่าง div */
+        overflow: hidden;
+    }
+
+    .image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+</style>
+<div class="image-container">
+    <div class="image">
+        <img src="path/to/image1.jpg" alt="Image 1">
+    </div>
+    <div class="image">
+        <img src="path/to/image2.jpg" alt="Image 2">
+    </div>
+    <div class="image">
+        <img src="path/to/image3.jpg" alt="Image 3">
+    </div>
+</div>
