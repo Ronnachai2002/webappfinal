@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,8 +16,10 @@
         }
 
         #navbar {
+            position: fixed;
             background-color: DarkGray;
             overflow: hidden;
+            top: 0;
             width: 100%;
         }
 
@@ -40,14 +41,15 @@
         #navbar div {
             float: right;
         }
+        
     </style>
 </head>
 <body>
     <header>
         <div>
-            <a href="{% url 'home' %}">หน้าแรก</a>
+            <a href="{% url 'home' %}"><i class="fa fa-fw fa-home"></i>หน้าแรก</a>
             <a href="{% url 'products' %}">สินค้า</a>
-            <a href="{% url 'contag' %}">ช่องทางการติดต่อ</a>
+            <a href="{% url 'contag' %}"><i class="fa fa-fw fa-envelope"></i>ช่องทางการติดต่อ</a>
             <a href="#">วิธีการชำระเงิน</a>
         </div>
     </header>

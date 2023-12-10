@@ -16,8 +16,8 @@ def products(request):
 
 
 def product(request, item_id):
-    item_instance = item.objects.get(id=item_id)
-    return render(request, 'productweb/product.html', {'item': item_instance})
+    item_instance = get_object_or_404(item, id=item_id)
+    return render(request, 'productweb/product_detail.html', {'item': item_instance})
 
 def contag(req):
     return render(req,'productweb/contag.html')

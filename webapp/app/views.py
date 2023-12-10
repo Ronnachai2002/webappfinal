@@ -48,3 +48,6 @@ def registerXlogin(req):
 def signout(request):
     logout(request)
     return redirect('home')
+
+def profile(req):
+    return render(req,'app/profile.html')

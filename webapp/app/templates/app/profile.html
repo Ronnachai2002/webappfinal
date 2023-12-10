@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ประวัติส่วนตัว</title>
+    <link rel="stylesheet" href="{% static 'css\profile.css' %}">
+</head>
+<body>
+    {% include 'base/tab_login.html' %}
+    {% include 'app/components/site_header.html' %}
+    <br>
+    <div class="profile-container">
+        <img class="profile-image" src="path/to/your/profile/image.jpg" alt="Profile Image">
+        <div class="profile-name">Your Name</div>
+        <div class="profile-info">Age: 25</div>
+        <div class="profile-info">Location: City, Country</div>
+        <div class="profile-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </div>
+    </div>
+</body>
+</html>
