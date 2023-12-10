@@ -1,40 +1,25 @@
-<!-- templates/tab/sidebar.html -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'css\sidebar.css' %}">
+<div class="container">
+    <div class="sidebar">
+      <input type="text" class="sidebar-search" placeholder="Search something...">
 
-<style>
-    #sidebar {
-        width: 250px;
-        height: 100%;
-        background-color: #111;
-        position: fixed;
-        overflow-x: hidden;
-        padding-top: 20px;
-    }
-
-    #sidebar a {
-        padding: 10px 15px;
-        text-decoration: none;
-        font-size: 18px;
-        color: #818181;
-        display: block;
-        transition: 0.3s;
-    }
-
-    #sidebar a:hover {
-        color: #f1f1f1;
-    }
-
-    #content {
-        margin-left: 250px; /* ปรับให้ content ไม่ซ้อนกับ sidebar */
-        padding: 16px;
-
-        
-}
-</style>
-<div id="sidebar">
-    <a href="#">ป้ายไวนิล</a>
-    <a href="#">ป้ายสติ๊กเกอร์</a>
-    <a href="#">ป้ายรีดโฟมบอร์ด</a>
-    <a href="#">ป้ายรีดฟิวเจอร์บอร์ด</a>
-    <a href="#">ป้ายอักษรพลาสวูด</a>
-    <a href="#">ป้ายกล่องไฟ</a>
-</div>
+      <a href="#" class="sidebar-items">
+        ป้ายไวนิล
+      </a>
+      <a href="#" class="sidebar-items">
+        ป้ายสติ๊กเกอร์ 
+      </a>
+      <a href="#" class="sidebar-items">
+        ป้ายรีดโฟมบอร์ด
+      </a>
+      <a href="#" class="sidebar-items">
+        ป้ายรีดฟิวเจอร์บอร์ด
+     </a>
+        <a href="#" class="sidebar-items">
+        ป้ายอักษรพลาสวูด
+        </a>
+      <a href="#" class="sidebar-items">
+        ป้ายกล่องไฟ
+    </a>
+    </div>
