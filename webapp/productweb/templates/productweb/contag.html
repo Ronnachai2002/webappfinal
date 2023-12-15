@@ -1,17 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="globals.css" />
+        <link rel="stylesheet" href="{% static 'css\contag.css' %}" />
         <title>ร้านบุญตา</title>
     </head>
     <body>
         {% include 'base/tab_login.html' %}
         {% include 'app/components/site_header.html' %}
-        {% include 'tab/sidebar.html' %}
-        <div class="box" id="content">
-            <div class="group">
-                <div class="overlap-group">
-                    <div class="rectangle"></div>
+                <div  id="contag-container">
                     <img class="img" src="img/rectangle-22.png" />
                     <div class="text-wrapper">Line ID :@wasdwadsawds</div>
                     <div class="div">โทรศัพท์ : 0981234567</div>
@@ -20,7 +17,5 @@
                     <img class="line" src="img/line-1.svg" />
                     <div class="text-wrapper-4">ช่องทางการติดต่อ</div>
                 </div>
-            </div>
-        </div>
     </body>
 </html>

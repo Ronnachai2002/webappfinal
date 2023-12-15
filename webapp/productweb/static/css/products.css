@@ -3,19 +3,20 @@
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-end; /* เปลี่ยนจาก space-between เป็น flex-end */
-    max-width: 1200px; /* ปรับค่าตามความต้องการ */
-    margin: auto; /* แก้ margin: center เป็น margin: auto */
-    margin-top: 5px; /* เพิ่ม margin-top เพื่อขยับลงมา */
+    justify-content: flex-end;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 5px;
 }
+
 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    width: 30%; /* ปรับค่าตามความต้องการ (100% / 3) */
+    width: 30%;
     margin-bottom: 16px;
     text-align: center;
     font-family: arial;
-    margin-right: 2%; /* เพิ่ม margin-right เพื่อให้มีช่องว่างระหว่างแต่ละกล่อง */
+    margin-right: 2%;
 }
 
 .price {

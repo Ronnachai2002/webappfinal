@@ -25,6 +25,8 @@ urlpatterns = [
     path('registerXlogin', views.registerXlogin, name='registerXlogin'),
     path('register', views.register, name='register'),
     path('login', views.login, name='login'),
-    path('profile', views.profile, name='profile'),
+    path('upload_profile_image/', upload_profile_image, name='upload_profile_image'),
+    path('profile/', profile, name='profile'),
+    path('profile/edit/', edit_profile, name='edit_profile'),
 
 ]

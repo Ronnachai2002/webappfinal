@@ -21,3 +21,6 @@ def product(request, item_id):
 
 def contag(req):
     return render(req,'productweb/contag.html')
+
+def payments(req):
+    return render(req,'payment/payments.html')
