@@ -13,8 +13,8 @@
                     <p>No image available</p>
                 {% endif %}
                 <h3><a href="{% url 'product' product.id %}">{{ product.title }}</a></h3>
+                <p class="price">{{product.price}}</p>
                 <p>{{ product.size }}</p>
-                <p class="price">$19.99</p>
                 <p><button>Add to Cart</button></p>
             </div>
         {% endfor %}

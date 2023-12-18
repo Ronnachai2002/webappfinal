@@ -25,7 +25,7 @@
         <p class="product-size">{{ item.size }}</p>
         <p class="product-matter">{{ item.matter }}</p>
         <p class="product-description">{{ item.description }}</p>
-        <p class="product-price">$19.99</p>
+        <p class="product-price">{{item.price}}</p>
         
         {% if user.is_authenticated %}
             <button type="button" id="orderButton"><a href="{% url 'order' %}">สั่งซื้อ</a></button>
