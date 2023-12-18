@@ -26,6 +26,7 @@ urlpatterns = [
     path('productweb/product/<int:item_id>/', product, name='product'),
     path('contag/', contag, name='contag'),
     path('payments/', payments, name='payments'),
+    path('order/', order, name='order'),
 
 ]
 if settings.DEBUG:

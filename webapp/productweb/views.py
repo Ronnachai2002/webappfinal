@@ -10,13 +10,13 @@ from .models import *
 
 
 def products(request):
-    all_products = item.objects.all()
+    all_products = Item.objects.all()
     context = {'products': all_products}
     return render(request, 'productweb/product.html', context)
 
 
 def product(request, item_id):
-    item_instance = get_object_or_404(item, id=item_id)
+    item_instance = get_object_or_404(Item, id=item_id)
     return render(request, 'productweb/product_detail.html', {'item': item_instance})
 
 def contag(req):
@@ -24,3 +24,6 @@ def contag(req):
 
 def payments(req):
     return render(req,'payment/payments.html')
+
+def order(request):
+    return render(request, 'order/preorder.html')

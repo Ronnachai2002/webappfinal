@@ -28,5 +28,8 @@ urlpatterns = [
     path('upload_profile_image/', upload_profile_image, name='upload_profile_image'),
     path('profile/', profile, name='profile'),
     path('profile/edit/', edit_profile, name='edit_profile'),
+    path('admin1/', admin1, name='admin1'),
+    path('management/', views.management, name='management'),
+    path('user_management/', user_management_view, name='user_management'),
 
 ]

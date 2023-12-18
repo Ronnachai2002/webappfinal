@@ -1,21 +1,26 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="{% static 'css\contag.css' %}" />
-        <title>ร้านบุญตา</title>
-    </head>
-    <body>
-        {% include 'base/tab_login.html' %}
-        {% include 'app/components/site_header.html' %}
-                <div  id="contag-container">
-                    <img class="img" src="img/rectangle-22.png" />
-                    <div class="text-wrapper">Line ID :@wasdwadsawds</div>
-                    <div class="div">โทรศัพท์ : 0981234567</div>
-                    <div class="text-wrapper-2">ชื่อร้าน</div>
-                    <div class="text-wrapper-3">Email : wasd@gmail.com</div>
-                    <img class="line" src="img/line-1.svg" />
-                    <div class="text-wrapper-4">ช่องทางการติดต่อ</div>
-                </div>
-    </body>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>contag</title>
+  <link rel="stylesheet" href="{% static 'css/contag1.css' %}">
+</head>
+<body>
+    {% include 'base/tab_login.html' %}
+    {% include 'app/components/site_header.html' %}
+  <div class="container">
+    <img src="{% static 'media\localimage.png' %}">
+    <div class="contact-info">
+      <p><strong>Line ID:</strong> <span class="line-id">@wasdwadsawds</span></p>
+      <p><strong>โทรศัพท์:</strong> <span class="phone-number">0981234567</span></p>
+      <p><strong>ชื่อร้าน:</strong> ร้านบุญตา</p>
+      <p><strong>Email:</strong> <a href="mailto:wasd@gmail.com" class="email">wasd@gmail.com</a></p>
+    </div>
+  </div>
+
+</body>
+
 </html>

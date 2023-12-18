@@ -1,18 +1,41 @@
 import datetime
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect 
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import authenticate, logout
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate,logout,login as auth_login
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden , JsonResponse
+from django.template import RequestContext
 from .models import *
 from .forms import *
 from datetime import datetime
-# Create your views here.
 
 
 def home(req):
     return render(req,'app/home.html')
+
+
+def registerXlogin(req):
+    return render(req,'app/registerXlogin.html')
+
+
+def signout(request):
+    logout(request)
+    return redirect('home')
+
+
+def admin1(request):
+    return render(request, 'admin/admin1.html', {'user': request.user})
+
+
+def management(request):
+    return render(request, 'admin/management.html', {'user': request.user})
+
+
+def user_management_view(request):
+    user_profiles = UserProfile.objects.all()
+    return render(request, 'admin/management.html', {'user_profiles': user_profiles})
+
 
 def register(req):
     if req.method == "POST":
@@ -26,51 +49,36 @@ def register(req):
         myuser.first_name = fname
         myuser.last_name = lname
         myuser.save()
-
-        UserProfile.objects.create(user=myuser, first_name=fname, last_name=lname, email=email)
-
+        UserProfile.objects.create(user=myuser, first_name=fname, last_name=lname, email=email, pass1=pass1)
         messages.success(req, "สร้างบัญชีเรียบร้อย ")    
         return redirect('registerXlogin')
     
     return render(req, "app/register.html")
-def login(req):
-    if req.method == 'POST':
-        username = req.POST['username']
-        pass1 = req.POST['pass1']
-        user = authenticate(username=username, password=pass1)
-        
-        if user is not None:
-            auth_login(req, user)
-            fname = user.first_name
-            return render(req, "app/home.html", {"fname": fname})
-        else:
-            messages.error(req, "ลองใหม่อีกครั้ง")
-            return redirect('home')
-    return render(req, 'app/login.html')
 
 
-def registerXlogin(req):
-    return render(req,'app/registerXlogin.html')
-
-
-def signout(request):
-    logout(request)
-    return redirect('home')
-
-def profile(request):
-    return render(request, 'app/profile.html', {'user': request.user})
-
-def upload_profile_image(request):
+def login(request):
     if request.method == 'POST':
-        profile_image = request.FILES.get('profile_image')
-        if profile_image:
-            request.user.userprofile.profile_image = profile_image
-            request.user.userprofile.save()
-            messages.success(request, 'อัพโหลดโปรไฟล์เรียบร้อยแล้ว')
-        else:
-            messages.error(request, 'กรุณาเลือกรูปภาพ')
+        username = request.POST.get('username')
+        password = request.POST.get('pass1')
+        user = authenticate(username=username, password=password)
 
-    return redirect('profile')
+        if user is not None:
+            auth_login(request, user)
+
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'success': True, 'message': 'Login successful'})
+            else:
+                fname = user.first_name
+                return render(request, "app/home.html", {"fname": fname})
+        else:
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'success': False, 'message': 'Invalid credentials'})
+            else:
+                messages.error(request, "Invalid credentials")
+                return redirect('home')
+
+    return render(request, 'app/login.html')
+
 
 @login_required
 def edit_profile(request):
@@ -79,30 +87,26 @@ def edit_profile(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=user_profile)
         if form.is_valid():
-            # ดึงข้อมูลวันที่, เดือน, และปีจาก form
             day = request.POST.get('day')
             month = request.POST.get('month')
             year = request.POST.get('year')
-
-            # นำวันที่, เดือน, และปีมารวมกันเพื่อสร้างวันที่แบบ Python
             birth_date_str = f"{year}-{month}-{day}"
             birth_date = datetime.strptime(birth_date_str, "%Y-%m-%d").date()
-
-            # กำหนดค่าวันเกิดใน UserProfile และบันทึก
             user_profile.birth_date = birth_date
             user_profile.save()
-
             messages.success(request, 'บันทึกข้อมูลเรียบร้อยแล้ว')
             return redirect('profile')
         else:
             messages.error(request, 'กรุณากรอกข้อมูลที่ถูกต้อง')
     else:
         form = UserProfileForm(instance=user_profile)
-
     return render(request, 'app/edit_profile.html', {'form': form})
+
 
 @login_required
 def upload_profile_image(request):
+    if request.user.is_superuser:
+        return HttpResponseForbidden("Admins cannot upload profile images.")
     if request.method == 'POST':
         profile_image = request.FILES.get('profile_image')
         if profile_image:
@@ -111,5 +115,13 @@ def upload_profile_image(request):
             messages.success(request, 'อัพโหลดโปรไฟล์เรียบร้อยแล้ว')
         else:
             messages.error(request, 'กรุณาเลือกรูปภาพ')
-
     return redirect('profile')
+
+
+@login_required
+def profile(request):
+    if request.user.is_superuser:
+        return HttpResponseForbidden("Admins do not have profiles.")
+    return render(request, 'app/profile.html', {'user': request.user})
+
+

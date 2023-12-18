@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,7 +58,8 @@ ROOT_URLCONF = 'webapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'app', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'productweb', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,10 +141,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'app/static'),
     os.path.join(BASE_DIR, 'productweb/static'),
 ]
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'app/media'),
-    os.path.join(BASE_DIR, 'productweb/media'),
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

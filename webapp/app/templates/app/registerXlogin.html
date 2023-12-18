@@ -41,7 +41,6 @@
                     <label for="pass1">รหัสผ่าน</label>
                     <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter Your Password" Required>
                 </div>
-        
                 <button type="submit" class="btn btn-primary">ล็อกอิน</button>
             </form>
         </div>
@@ -52,12 +51,14 @@
                     <h1>กลับไปหน้าล็อกอิน</h1>
                     <p>คลิ๊กที่ปุ่มล็อกอินข้างล้างเพื่อกลับไปหน้าล็อกอินได้</p>
                     <button class="hidden" id="login">ล็อกอิน</button>
+                    <button class="hidden"><a style="color: aliceblue;" href="{% url 'home' %}">หน้าหลัก</a></button>
                 </div>
                 <div class="toggle-panel toggle-right">
                     {% csrf_token %}
                     <h1>สมัครสมาชิก</h1>
                     <p>กดปุ่มสมัครสมาชิกเพื่อไปยังหน้าสมัครสมาชิกของเราได้</p>
                     <button class="hidden" id="register">สมัครสมาชิก</button>  
+                    <button class="hidden"><a style="color: aliceblue;" href="{% url 'home' %}">หน้าหลัก</a></button>
                 </div>
             </div>            
         </div>

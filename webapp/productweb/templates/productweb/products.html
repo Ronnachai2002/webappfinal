@@ -1,25 +1,23 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css\products.css' %}">
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
 <!DOCTYPE html>
 <html>
     <title>ร้านบุญตา</title>
 <body>
     <div id="content" class="card-container">
         {% for product in products %}
-        <div class="card">
-            {% if product.image %}
-                <img src="{{ product.image.url }}" style="width:50%">
-            {% else %}
-                <p>No image available</p>
-            {% endif %}
-            <h3><a href="{% url 'product' product.id %}">{{ product.title }}</a></h3>
-            <p>{{ product.size }}</p>
-            <p class="price">$19.99</p>
-            <p><button>Add to Cart</button></p>
-        </div>
+            <div class="card">
+                {% if product.images.all %}
+                    <img src="{{ product.images.first.image.url }}" style="width:50%">
+                {% else %}
+                    <p>No image available</p>
+                {% endif %}
+                <h3><a href="{% url 'product' product.id %}">{{ product.title }}</a></h3>
+                <p>{{ product.size }}</p>
+                <p class="price">$19.99</p>
+                <p><button>Add to Cart</button></p>
+            </div>
         {% endfor %}
     </div>
 </body>
-
-
 </html>
