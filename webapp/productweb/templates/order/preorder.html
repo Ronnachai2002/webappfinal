@@ -4,16 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/order.css' %}">
-    <title>หน้าสั่งทำป้าย</title>
+    <link rel="stylesheet" href="{% static 'css/order1.css' %}">
+    <title>Order Sign</title>
 </head>
 <body>
     {% include 'base/tab_login.html' %}
     {% include 'app/components/site_header.html' %}
     <div class="container">
-        <div class="contact-info">
-            <img src="" alt="รูปภาพ">
-        </div>
+        <form action="#" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>สั่งป้าย Order</h2>
+            <div class="form-group">
+                <label for="sign-title">ชื่อป้ายที่ต้องการ:</label>
+                <input type="text" id="sign-title" name="sign_title" required>
+            </div>
+            <div class="form-group">
+                <label for="sign-color">สี :</label>
+                <select id="sign-color" name="sign_color">
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sign-size">ขนาดป้ายที่ต้องการ :</label>
+                <input type="text" id="sign-size" name="sign_size" required>
+            </div>
+            <div class="form-group">
+                <label for="sign-material">วัสดุ:</label>
+                <select id="sign-material" name="sign_material">
+                    <option value="wood">Wood</option>
+                    <option value="metal">Metal</option>
+                    <option value="plastic">Plastic</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="additional-details">รายละเอียดเพิ่มเติม:</label>
+                <textarea id="additional-details" name="additional_details" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="image-upload">อัพโหลดรูปภาพ:</label>
+                <input type="file" id="image-upload" name="image_upload" accept="image/*">
+            </div>
+            <button type="submit">Order</button>
+        </form>
     </div>
 </body>
 </html>

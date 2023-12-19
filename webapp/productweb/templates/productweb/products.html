@@ -1,10 +1,21 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/products.css' %}">
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>ร้านบุญตา</title>
+</head>
 <body>
     <div id="content" class="card-container">
+        <div id="cart-info" style="cursor: pointer;" data-cart-url="{% url 'cart' %}">
+            <span id="cart-icon" class="fa fa-shopping-cart"></span>
+            <span id="cart-count">0</span>
+        </div>
         {% for product in products %}
             <div class="card">
                 {% if product.images.all %}
@@ -12,12 +23,18 @@
                 {% else %}
                     <p>No image available</p>
                 {% endif %}
+                {% if user.is_superuser %}
+                    <p><a href="{% url 'delete_product' product.id %}">Delete</a></p>
+                {% endif %}
                 <h3><a href="{% url 'product' product.id %}">{{ product.title }}</a></h3>
-                <p class="price">{{product.price}}</p>
+                <p class="price">{{ product.price }}</p>
                 <p>{{ product.size }}</p>
-                <p><button>Add to Cart</button></p>
+                <button class="add-to-cart-btn" data-item-id="{{ product.id }}">Add to Cart</button>
             </div>
         {% endfor %}
+
+        <script src="{% static 'js/cart.js' %}" >
+        </script>
     </div>
 </body>
 </html>
