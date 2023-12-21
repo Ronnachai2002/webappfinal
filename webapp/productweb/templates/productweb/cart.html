@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
 </head>
-<body>
+<body  >
     {% include 'base/tab_login.html' %}
     {% include 'app/components/site_header.html' %}
-    <div>
+    <div class="container" >
         <h2>ตะกร้าสินค้า</h2>
         {% for cart_item in cart_items %}
             <p>{{ cart_item.product.title }} - Quantity: {{ cart_item.quantity }}</p>

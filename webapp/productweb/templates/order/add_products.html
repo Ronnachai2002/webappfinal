@@ -1,0 +1,50 @@
+{% load static %}
+{% include 'base/tab_login.html' %}
+{% include 'app/components/site_header.html' %}
+<link rel="stylesheet" href="{% static 'css/cart_add.css' %}">
+<body>
+    <div class="container">
+        <form action="#" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>{{ product.title }}</h2>
+            <div class="form-group">
+                <label for="sign-title">ชื่อป้ายที่ต้องการ:</label>
+                <input type="text" id="sign-title" name="sign_title" required>
+            </div>
+            <div class="form-group">
+                <label for="sign-color">สี :</label>
+                <select id="sign-color" name="sign_color">
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sign-size">ขนาดป้ายที่ต้องการ :</label>
+                <input type="text" id="sign-size" name="sign_size" required>
+            </div>
+            <div class="form-group">
+                <label for="sign-material">วัสดุ:</label>
+                <select id="sign-material" name="sign_material">
+                    <option value="wood">Wood</option>
+                    <option value="metal">Metal</option>
+                    <option value="plastic">Plastic</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="additional-details">รายละเอียดเพิ่มเติม:</label>
+                <textarea id="additional-details" name="additional_details" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="image-upload">อัพโหลดรูปภาพ:</label>
+                <input type="file" id="image-upload" name="image_upload" accept="image/*">
+            </div>
+            <form method="post" enctype="multipart/form-data" action="{% url 'add_products' product.id %}">
+                {% csrf_token %}
+                {{ cart_form.as_p }}
+                <button type="submit">Add Product to Cart</button>
+            </form>
+        </form>
+    </div>
+    <script src="{% static 'js/add_cart.js' %}" ></script>
+</body>

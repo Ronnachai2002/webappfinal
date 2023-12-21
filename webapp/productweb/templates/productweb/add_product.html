@@ -17,7 +17,7 @@
                 {% csrf_token %}
                 {{ item_form.as_p }}
                 {{ image_form.as_p }}
-                <button type="submit">Add Product</button>
+                <button type="submit"><a href="{% url 'cart' %}">Add Product</a> </button>
             </form>
         {% endblock %}
     </div>

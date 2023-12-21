@@ -5,6 +5,7 @@
 <div id="topbar">
     <div>
         {% if user.is_authenticated %}
+            <a href="{% url 'cart' %}" >ตะกร้าสินค้า</a>
             <a href="/signout">ออกจากระบบ</a>
             <a href="/profile">โปรไฟล์</a>
             

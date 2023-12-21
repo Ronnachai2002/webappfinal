@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate,logout,login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden , JsonResponse
 from django.template import RequestContext
+from django.db import IntegrityError
 from .models import *
 from .forms import *
 from datetime import datetime
@@ -44,15 +45,26 @@ def register(req):
         lname = req.POST['lname']
         email = req.POST['email']
         pass1 = req.POST['pass1']
-        
-        myuser = User.objects.create_user(username, email, pass1)
-        myuser.first_name = fname
-        myuser.last_name = lname
-        myuser.save()
-        UserProfile.objects.create(user=myuser, first_name=fname, last_name=lname, email=email, pass1=pass1)
-        messages.success(req, "สร้างบัญชีเรียบร้อย ")    
-        return redirect('registerXlogin')
-    
+
+        # Check if the username already exists
+        if User.objects.filter(username=username).exists():
+            messages.error(req, "Username is already taken. Please choose a different username.")
+            return render(req, "app/register.html")
+
+        try:
+            myuser = User.objects.create_user(username, email, pass1)
+            myuser.first_name = fname
+            myuser.last_name = lname
+            myuser.save()
+
+            UserProfile.objects.create(user=myuser, first_name=fname, last_name=lname, email=email, pass1=pass1)
+            messages.success(req, "สร้างบัญชีเรียบร้อย ")
+            return redirect('registerXlogin')
+
+        except IntegrityError:
+            messages.error(req, "An error occurred while creating the user. Please try again.")
+            return render(req, "app/register.html")
+
     return render(req, "app/register.html")
 
 
@@ -77,7 +89,7 @@ def login(request):
                 messages.error(request, "Invalid credentials")
                 return redirect('home')
 
-    return render(request, 'app/login.html')
+    return render(request, 'app/home.html')
 
 
 @login_required
@@ -120,8 +132,6 @@ def upload_profile_image(request):
 
 @login_required
 def profile(request):
-    if request.user.is_superuser:
-        return HttpResponseForbidden("Admins do not have profiles.")
     return render(request, 'app/profile.html', {'user': request.user})
 
 
