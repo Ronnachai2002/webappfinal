@@ -24,9 +24,9 @@
                 <p class="price">{{ product.price }}</p>
                 <p>{{ product.size }}</p>
                 {% if user.is_authenticated %}
-                <button type="button" id="orderButton"><a href="{% url 'add_products' product.id %}">Add to Cart</a></button>
+                <button type="button" id="orderButton"><a href="{% url 'order' %}">สั่งซื้อ</a></button>
                 {% else %}
-                <button type="button" onclick="redirectToLogin()">Add to Cart</button>
+                <button type="button" onclick="redirectToLogin()">สั่งซื้อ</button>
                 {% endif %}
             </div>
             <script>let currentImage = 0;

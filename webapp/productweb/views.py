@@ -32,7 +32,7 @@ def add_product(request):
             image.item = item
             image.save()
 
-            return redirect('products')
+            return redirect('products') 
     else:
         item_form = ItemForm()
         image_form = ItemImageForm()
@@ -53,7 +53,7 @@ def cart(request):
 def add_products(request, product_id):
     product_instance = Item.objects.get(id=product_id)
     context = {'product': product_instance}
-    return render(request, 'order/add_products.html', context)
+    return render(request, 'productweb/add_products.html', context)
 
 
 def contag(req):

@@ -11,6 +11,3 @@ class ItemImageForm(forms.ModelForm):
     class Meta:
         model = ItemImage
         fields = ['image']
-
-class YourCartForm(forms.Form):
-    quantity = forms.IntegerField(min_value=1, initial=1, widget=forms.NumberInput(attrs={'class': 'form-control'}))
