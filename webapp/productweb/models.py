@@ -7,6 +7,7 @@ class Item(models.Model):
     description = models.TextField(max_length=255, default='No description')
     material = models.CharField(max_length=50, default='No description')
     price = models.CharField(max_length=50)
+    is_available = models.BooleanField(default=True, blank=True, null=True)
 
 class ItemImage(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='images')

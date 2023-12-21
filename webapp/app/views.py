@@ -46,7 +46,6 @@ def register(req):
         email = req.POST['email']
         pass1 = req.POST['pass1']
 
-        # Check if the username already exists
         if User.objects.filter(username=username).exists():
             messages.error(req, "Username is already taken. Please choose a different username.")
             return render(req, "app/register.html")
@@ -117,8 +116,6 @@ def edit_profile(request):
 
 @login_required
 def upload_profile_image(request):
-    if request.user.is_superuser:
-        return HttpResponseForbidden("Admins cannot upload profile images.")
     if request.method == 'POST':
         profile_image = request.FILES.get('profile_image')
         if profile_image:
