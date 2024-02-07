@@ -58,7 +58,7 @@ def register(req):
 
             UserProfile.objects.create(user=myuser, first_name=fname, last_name=lname, email=email, pass1=pass1)
             messages.success(req, "สร้างบัญชีเรียบร้อย ")
-            return redirect('registerXlogin')
+            return redirect('login')
 
         except IntegrityError:
             messages.error(req, "An error occurred while creating the user. Please try again.")
@@ -88,7 +88,7 @@ def login(request):
                 messages.error(request, "Invalid credentials")
                 return redirect('home')
 
-    return render(request, 'app/home.html')
+    return render(request, 'app/login.html')
 
 
 @login_required
