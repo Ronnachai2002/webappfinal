@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from app.models import UserProfile
 
 
 class Item(models.Model):
@@ -13,3 +14,11 @@ class Item(models.Model):
 class ItemImage(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='product_images', null=True, blank=True)
+
+class Cart(models.Model):
+    cart = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+
+class Detailcart(models.Model):
+    itemImages = models.ForeignKey(ItemImage, on_delete=models.CASCADE)
+    carts = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    amount = models.IntegerField()

@@ -7,8 +7,8 @@ from app.models import *
 from .forms import *
 from .models import *
 from django.http import JsonResponse
-
-# Create your views here.
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 
 def products(request):
@@ -47,15 +47,52 @@ def delete_product(request, product_id):
 
     return render(request, 'productweb/delete_product.html', {'product': product})
 
-def cart(request):
-    return render(request, 'productweb/cart.html')
+def cart(req):
+    try:
+        # ค้นหา UserProfile สำหรับผู้ใช้งานปัจจุบัน
+        user_profile = UserProfile.objects.get(user=req.user)
+        # ค้นหาหรือสร้างตะกร้าสำหรับ UserProfile นั้น
+        cart, created = Cart.objects.get_or_create(cart=user_profile)
+        
+        cart_detail = Detailcart.objects.filter(carts=cart)
+        count = sum(detail.amount for detail in cart_detail)
+        
+        context = {'count': count, 'cart': cart_detail}
+        return render(req, 'productweb/cart.html', context)
+    except UserProfile.DoesNotExist:
+        # หากไม่พบ UserProfile สำหรับผู้ใช้งานปัจจุบัน
+        # คุณสามารถจัดการตามที่เหมาะสมต่อการใช้งานของคุณได้ที่นี่
+        pass
+
+def add_cart(req, id):
+    products = ItemImage.objects.filter(item=id)
+    
+    try:
+        user_profile = UserProfile.objects.get(user=req.user)
+        cart, created = Cart.objects.get_or_create(cart=user_profile)
+        
+        # เลือกใช้เพียงอ็อบเจกต์แรกหรือตามความเหมาะสม
+        product_instance = products.first()
+        
+        cart_detail = Detailcart.objects.create(
+            itemImages=product_instance,
+            carts=cart,
+            amount=1,
+        )
+        cart_detail.save()
+        
+        # หลังจากที่เพิ่มสินค้าในตะกร้าเรียบร้อยแล้ว ให้เรียกใช้ฟังก์ชัน cart เพื่อโหลดข้อมูลตะกร้าใหม่
+        return HttpResponseRedirect(reverse('cart'))
+    except UserProfile.DoesNotExist:
+        # หากไม่พบ UserProfile สำหรับผู้ใช้งานปัจจุบัน
+        # คุณสามารถจัดการตามที่เหมาะสมต่อการใช้งานของคุณได้ที่นี่
+        pass
 
 def add_products(request, product_id):
     product_instance = Item.objects.get(id=product_id)
     context = {'product': product_instance}
     return render(request, 'productweb/add_products.html', context)
-
-
+    
 def contag(req):
     return render(req,'productweb/contag.html')
 
@@ -64,3 +101,12 @@ def payments(req):
 
 def order(request):
     return render(request, 'order/preorder.html')
+
+def delete_product(request, product_id):
+    cart_item = get_object_or_404(Detailcart, id=product_id)
+    if request.method == 'POST':
+        cart_item.delete()
+        return redirect('cart')  # ส่งผู้ใช้กลับไปยังหน้าตะกร้าหลังจากทำการลบรายการสินค้า
+
+    return render(request, 'productweb/delete_product.html', {'product': cart_item})
+

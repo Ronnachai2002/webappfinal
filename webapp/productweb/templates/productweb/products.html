@@ -24,7 +24,7 @@
                 <p class="price">{{ product.price }}</p>
                 <p>{{ product.size }}</p>
                 {% if user.is_authenticated %}
-                <button type="button" id="orderButton"><a href="{% url 'order' %}">เพิ่มไปตะกร้า</a></button>
+                <button type="button" id="orderButton"><a href="{% url 'add_cart' product.id %}">เพิ่มไปตะกร้า</a></button>
                 {% else %}
                 <button type="button" onclick="redirectToLogin()">เพิ่มไปตะกร้า</button>
                 {% endif %}
@@ -33,12 +33,12 @@
 
                 function redirectToLogin() {
                   alert('กรุณาเข้าสู่ระบบเพื่อทำการสั่งซื้อ');
-                  window.location.href = '/registerXlogin';
+                  window.location.href = '/login';
                 }
                 
                 function orderButtonClicked() {
                   alert('กรุณาเข้าสู่ระบบเพื่อทำการสั่งซื้อ');
-                  window.location.href = '{% url "registerXlogin" %}';
+                  window.location.href = '{% url "login" %}';
                 }</script>
         {% endfor %}
         </script>

@@ -26,10 +26,10 @@ urlpatterns = [
     path('productweb/product/<int:item_id>/', product, name='product'),
     path('contag/', contag, name='contag'),
     path('payments/', payments, name='payments'),
-    path('order/', order, name='order'),
     path('add_product/', add_product, name='add_product'),
     path('delete_product/<int:product_id>/', delete_product, name='delete_product'),
-    path('add_products/<int:product_id>/', views.add_products, name='add_products'),
+    path('add_cart/<int:id>/', add_cart, name='add_cart'),
+    path('cart',cart,name='cart'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

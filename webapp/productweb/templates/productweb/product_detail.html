@@ -28,7 +28,7 @@
         <p class="product-price">{{item.price}}</p>
         
         {% if user.is_authenticated %}
-            <button type="button" id="orderButton"><a href="{% url 'order' %}">สั่งซื้อ</a></button>
+            <button type="button" id="orderButton"><a href="#">สั่งซื้อ</a></button>
         {% else %}
             <button type="button" onclick="redirectToLogin()">สั่งซื้อ</button>
         {% endif %}
