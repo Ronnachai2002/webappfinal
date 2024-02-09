@@ -2,12 +2,12 @@ let currentImage = 0;
 
 function redirectToLogin() {
   alert('กรุณาเข้าสู่ระบบเพื่อทำการสั่งซื้อ');
-  window.location.href = '/registerXlogin';
+  window.location.href = '/login';
 }
 
 function orderButtonClicked() {
   alert('กรุณาเข้าสู่ระบบเพื่อทำการสั่งซื้อ');
-  window.location.href = '{% url "registerXlogin" %}';
+  window.location.href = '/login';
 }
 
 function showImage(n) {

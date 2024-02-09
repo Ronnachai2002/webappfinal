@@ -17,7 +17,7 @@ def home(req):
 
 
 def registerXlogin(req):
-    return render(req,'app/registerXlogin.html')
+    return render(req,'app/login.html')
 
 
 def signout(request):
